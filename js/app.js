@@ -34,6 +34,9 @@ const createUlItem = function(form) {
   const liSports = document.createElement('li');
   singleUlItem.appendChild(liSports);
 
+  const liSeason = document.createElement('li');
+  singleUlItem.appendChild(liSeason);
+
   const firstNameValue = form.firstName.value;
   liFirstName.textContent = firstNameValue;
 
@@ -46,7 +49,8 @@ const createUlItem = function(form) {
   const checkboxes = document.querySelectorAll('.sport-checkbox');
   liSports.textContent = selectCheckedValues(checkboxes);
 
-
+  const radioButtons = document.querySelectorAll('.season-radio');
+  liSeason.textContent = selectCheckedValues(radioButtons);
 
 }
 
@@ -60,7 +64,6 @@ const createDeleteButton = function() {
 }
 
 const handleDeletion = function(event) {
-  event.preventDefault();
   const list = document.querySelector('#details-container');
   while(list.firstChild) {
     list.removeChild(list.firstChild);
@@ -69,7 +72,7 @@ const handleDeletion = function(event) {
   deleteButton.parentNode.removeChild(deleteButton);
 }
 
-const checkIfCheckboxChecked = function (checkbox) {
+const checkIfChecked = function (checkbox) {
   if (checkbox.checked) {
     return true;
   } else {
@@ -80,9 +83,8 @@ const checkIfCheckboxChecked = function (checkbox) {
 const selectCheckedValues = function (checkboxes) {
   let finalValue = "";
   for(i = 0; i < checkboxes.length; i++) {
-      if (checkIfCheckboxChecked(checkboxes[i])) {
+      if (checkIfChecked(checkboxes[i])) {
         finalValue += `${checkboxes[i].value}, `;
-
       }
   }
   const valuesToDisplay = finalValue.slice(0, -2);
