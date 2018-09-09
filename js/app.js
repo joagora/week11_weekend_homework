@@ -4,9 +4,12 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 const handleFormSubmission = function(event) {
+  console.dir(event);
   event.preventDefault();
+
   const newDiv = createUlItem(event.target);
   event.target.reset();
+
 }
 
 const createUlItem = function(form) {
@@ -28,6 +31,9 @@ const createUlItem = function(form) {
   const liLocation = document.createElement('li');
   singleUlItem.appendChild(liLocation);
 
+  const liSports = document.createElement('li');
+  singleUlItem.appendChild(liSports);
+
   const firstNameValue = form.firstName.value;
   liFirstName.textContent = firstNameValue;
 
@@ -36,6 +42,10 @@ const createUlItem = function(form) {
 
   const locationValue = form.location.value;
   liLocation.textContent = locationValue;
+
+  const checkboxes = document.querySelectorAll('.sport-checkbox');
+  liSports.textContent = selectCheckedValues(checkboxes);
+
 
 
 }
@@ -57,4 +67,24 @@ const handleDeletion = function(event) {
   }
   const deleteButton = event.target;
   deleteButton.parentNode.removeChild(deleteButton);
+}
+
+const checkIfCheckboxChecked = function (checkbox) {
+  if (checkbox.checked) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+const selectCheckedValues = function (checkboxes) {
+  let finalValue = "";
+  for(i = 0; i < checkboxes.length; i++) {
+      if (checkIfCheckboxChecked(checkboxes[i])) {
+        finalValue += `${checkboxes[i].value}, `;
+
+      }
+  }
+  const valuesToDisplay = finalValue.slice(0, -2);
+  return valuesToDisplay;
 }
